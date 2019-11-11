@@ -1,26 +1,34 @@
 <template>
   <div id="app">
     <h1>ZELP</h1>
-    <l-map ref="myMap"></l-map>
+    <div>Data: {{ example1 }}</div>
+    <button @click="getRestaurant">Get Restaurant</button>
   </div>
 </template>
-
 <script>
-import { LMap } from "vue2-leaflet";
-//import axios from "axios";
-
+import axios from "axios";
 export default {
   name: "app",
-  components: {
-    LMap
+  data() {
+    return {
+      example1: ""
+    };
   },
-  data: () => ({
-    data: null
-  }),
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.myMap.mapObject.LMap();
-    });
+  methods: {
+    async getRestaurant() {
+      const res = await axios.post("http://localhost:4000/graphql", {
+        query: `{ Restaurants {
+        business_id
+        name
+        address
+        city
+        state
+        stars
+        categories
+      } }`
+      });
+      this.example1 = res.data.data.Restaurants[0];
+    }
   }
 };
 </script>

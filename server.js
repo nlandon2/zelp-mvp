@@ -1,5 +1,5 @@
+/* eslint-disable no-console */
 const config = require("./config");
-const services = require("./services")(config);
 const knex = require("knex")(config.db);
 const models = require("./models")(knex);
 const morgan = require("morgan");
@@ -7,11 +7,13 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const { buildSchema } = require("graphql");
+const cors = require("cors");
 
 const app = express();
 let data = models.restaurants;
 
 app.use(morgan("dev"));
+app.use(cors());
 
 const schema = buildSchema(`
 
@@ -149,20 +151,8 @@ app.use(bodyParser.json({ type: "application/json", limit: "50mb" }));
 
 app.use(express.static(`${__dirname}/public`));
 
-app.use((err, req, res, next) => {
-  if (err.stack) {
-    if (err.stack.match("node_modules/body-parser"))
-      return res.status(400).send("Invalid JSON");
-  }
-
-  services.logger.log(err);
-  return res.status(500).send("Internal Error.");
-});
-
-app.listen(config.express.port, () => {
-  services.logger.log(
-    `Server up and listening on port ${config.express.port}/graphql`
-  );
+app.listen(4000, () => {
+  console.log(`Server up and listening on port 4000`);
 });
 
 module.exports = { schema, express };
