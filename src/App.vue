@@ -1,26 +1,25 @@
 <template>
   <div id="app">
-    <h1>{{data}}</h1>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>ZELP</h1>
+    <l-map ref="myMap"></l-map>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-import axios from "axios";
+import { LMap } from "vue2-leaflet";
+//import axios from "axios";
 
 export default {
   name: "app",
   components: {
-    HelloWorld
+    LMap
   },
   data: () => ({
     data: null
   }),
   mounted() {
-    axios.get("/api").then(response => {
-      this.data = response.data;
+    this.$nextTick(() => {
+      this.$refs.myMap.mapObject.LMap();
     });
   }
 };
