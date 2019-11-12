@@ -2,7 +2,28 @@ export const mutations = {
   setRestaurants(state, restaurants) {
     state.restaurants = restaurants;
   },
-  setView(state, view) {
+  setCurrentView(state, view) {
     state.currentView = view;
+  },
+  setStateInput(state, value) {
+    state.stateInput = value;
+  },
+  setCityInput(state, city) {
+    state.cityInput = city;
+  },
+  setNameInput(state, name) {
+    state.nameInput = name;
+  },
+  setZipInput(state, zip) {
+    state.zipInput = zip;
+  },
+  setCategoryInput(state, category) {
+    state.categoryInput = category;
+  },
+  setStarInput(state, stars) {
+    state.starInput = stars;
+  },
+  setDistanceInput(state, distance) {
+    state.distanceInput = distance;
   }
 };

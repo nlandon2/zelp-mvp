@@ -26,6 +26,8 @@ const schema = buildSchema(`
     postal_code: String
     stars: Float
     categories: String
+    latitude: String
+    longitude: String
   }
   
   type Restaurant {
@@ -37,13 +39,15 @@ const schema = buildSchema(`
     postal_code: String
     stars: Float
     categories: String
+    latitude: String
+    longitude: String
   }
 
   type Query {
     Restaurants: [Restaurant]
     Restaurant(business_id: String): Restaurant
     RestaurantBy(name: String city: String postal_code: String stars: Float categories: String ): [Restaurant]
-    RandomRestaurantBy(city: String name: String postal_code: String stars: Float categories: String ): Restaurant
+    RandomRestaurantBy(city: String state: String name: String postal_code: String stars: Float categories: String ): Restaurant
   }
 
   type Mutation {
@@ -108,6 +112,16 @@ const root = {
     if (request.city) {
       restaurantData = restaurantData.filter(restaurant => {
         return restaurant.city.indexOf(request.city) !== -1;
+      });
+    }
+    if (request.state) {
+      restaurantData = restaurantData.filter(restaurant => {
+        return restaurant.state.indexOf(request.state) !== -1;
+      });
+    }
+    if (request.postal_code) {
+      restaurantData = restaurantData.filter(restaurant => {
+        return restaurant.postal_code === request.postal_code;
       });
     }
     if (request.categories) {

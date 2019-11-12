@@ -1,57 +1,82 @@
+
 <template>
   <div id="app">
     <h1>ZELP</h1>
-    <button @click="getRestaurant">Get Restaurant</button>
-    <div v-if="$store.getters['getCurrentView'] === 'filterView'" class="dataSet">
-      <div>{{`Name: ${restaurantName}`}}</div>
-      <div>{{`Address: ${restaurantAddress}`}}</div>
-      <div>{{`${restaurantCity}, ${restaurantState} ${restaurantPostal}`}}</div>
-      <div>{{`${restaurantStars} Stars`}}</div>
-      <div>{{`Categories: ${restaurantCategories.replace(/;/g, ', ').replace("Restaurants,","").replace(", Restaurants","")}`}}</div>
-    </div>
+    <FilterRestaurant />
+    <button @click="getRandomRestaurant">Get Restaurant</button>
+    <ListRestaurant v-if="$store.getters['getCurrentView']==='ListView'" :info="info" />
   </div>
 </template>
 <script>
+/* eslint-disable no-console */
 import axios from "axios";
+import ListRestaurant from "./components/ListRestaurant";
+import FilterRestaurant from "./components/FilterRestaurant";
 export default {
   name: "app",
   data() {
     return {
-      restaurantName: "",
-      restaurantAddress: "",
-      restaurantCity: "",
-      restaurantState: "",
-      restaurantPostal: "",
-      restaurantStars: "",
-      restaurantCategories: ""
+      info: {
+        restaurantName: "",
+        restaurantAddress: "",
+        restaurantCity: "",
+        restaurantState: "",
+        restaurantPostal: "",
+        restaurantStars: 0,
+        restaurantCategories: ""
+      }
     };
   },
+  components: {
+    ListRestaurant,
+    FilterRestaurant
+  },
+  computed: {
+    currentView() {
+      return this.$store.state.currentView;
+    }
+  },
   methods: {
-    async getRestaurant() {
+    async getRandomRestaurant() {
       const res = await axios.post("http://localhost:4000/graphql", {
-        query: `{
-        RandomRestaurantBy(city: "Toronto") {
-          business_id
-          name
-          address
-          city
-          state
-          postal_code
-          stars
-          categories
+        query: `
+        query RandomRestaurantBy($restaurantName: String $restaurantCity: String $restaurantZip: String $restaurantState: String $restaurantStars: Float $restaurantCategories: String) {
+          RandomRestaurantBy(name: $restaurantName city: $restaurantCity postal_code: $restaurantZip state: $restaurantState stars: $restaurantStars categories: $restaurantCategories) {
+            name
+            address
+            city
+            state
+            postal_code
+            stars
+            categories
+          }
+        }`,
+        variables: {
+          restaurantName: this.$store.getters["getNameInput"],
+          restaurantCity: this.$store.getters["getCityInput"],
+          restaurantZip: this.$store.getters["getZipInput"],
+          restaurantState: this.$store.getters["getStateInput"],
+          restaurantStars: parseFloat(this.$store.getters["getStarInput"]),
+          restaurantCategories: this.$store.getters["getCategoryInput"]
         }
-      }`
       });
-      this.restaurantName = res.data.data.RandomRestaurantBy.name;
-      this.restaurantAddress = res.data.data.RandomRestaurantBy.address;
-      this.restaurantCity = res.data.data.RandomRestaurantBy.city;
-      this.restaurantState = res.data.data.RandomRestaurantBy.state;
-      this.restaurantPostal = res.data.data.RandomRestaurantBy.postal_code;
-      this.restaurantStars = res.data.data.RandomRestaurantBy.stars;
-      this.restaurantCategories = res.data.data.RandomRestaurantBy.categories;
+      this.info.restaurantName = res.data.data.RandomRestaurantBy.name;
+      this.info.restaurantAddress = res.data.data.RandomRestaurantBy.address;
+      this.info.restaurantCity = res.data.data.RandomRestaurantBy.city;
+      this.info.restaurantState = res.data.data.RandomRestaurantBy.state;
+      this.info.restaurantPostal = res.data.data.RandomRestaurantBy.postal_code;
+      this.info.restaurantStars = res.data.data.RandomRestaurantBy.stars;
+      this.info.restaurantCategories = res.data.data.RandomRestaurantBy.categories.replace(
+        /;/g,
+        ", "
+      );
+      this.$store.commit("setCurrentView", "ListView");
+      console.log(this.$store.getters["getZipInput"]);
     }
   }
 };
+
+/* eslint-enable no-console */
 </script>
 
 <style>

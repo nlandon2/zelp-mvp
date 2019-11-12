@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const actions = {
-  async getLocations({ commit }) {
+  async getRestaurants({ commit }) {
     const { data: restaurants } = await axios.post(
       "http://localhost:4000/graphql",
       {
@@ -21,6 +21,6 @@ export const actions = {
       }`
       }
     );
-    commit("setLocations", restaurants);
+    commit("setRestaurants", restaurants);
   }
 };

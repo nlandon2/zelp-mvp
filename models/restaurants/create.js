@@ -8,6 +8,7 @@ module.exports = (knex, Restaurant) => {
     const restaurantCity = params.city;
     const restaurantState = params.state;
     const restaurantStars = params.stars;
+    const restaurantZip = params.postal_code;
     const restaurantCategories = params.categories;
 
     if (!validateName(restaurantName)) {
@@ -23,7 +24,8 @@ module.exports = (knex, Restaurant) => {
         city: restaurantCity,
         state: restaurantState,
         stars: restaurantStars,
-        categories: restaurantCategories
+        categories: restaurantCategories,
+        postal_code: restaurantZip
       })
       .then(() => {
         return knex("restaurants").select();

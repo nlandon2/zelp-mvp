@@ -9,6 +9,8 @@ const Restaurant = function(dbRestaurant) {
   this.stars = dbRestaurant.stars;
   this.postal_code = dbRestaurant.postal_code;
   this.categories = dbRestaurant.categories;
+  this.latitude = dbRestaurant.latitude;
+  this.longitude = dbRestaurant.longitude;
 };
 
 Restaurant.prototype.serialize = function() {
