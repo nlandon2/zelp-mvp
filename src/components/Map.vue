@@ -7,6 +7,7 @@
         :position="m.position"
         :clickable="true"
         :draggable="true"
+        :icon="{ url: require('../assets/blue_marker.png')}"
         @click="center=m.position"
       />
     </GmapMap>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
 import { gmapApi } from "vue2-google-maps";
 
 export default {
@@ -43,7 +45,8 @@ export default {
       restaurantPostal: String,
       restaurantStars: Number,
       restaurantCategories: String,
-      restaurantLocation: Object
+      restaurantLatitude: String,
+      restaurantLongitude: String
     }
   },
   mounted() {
@@ -55,24 +58,53 @@ export default {
     },
     addMarker() {
       if (this.currentLocation) {
-        const marker = {
+        const markerA = {
           lat: this.currentLocation.geometry.location.lat(),
           lng: this.currentLocation.geometry.location.lng()
         };
-        this.markers.push({ position: marker });
+        this.markers.push({ position: markerA });
         this.places.push(this.currentLocation);
-        this.center = marker;
-        this.currentLocation = null;
+        this.center = markerA;
+      }
+      if (this.info.restaurantAddress) {
+        const markerB = {
+          lat: parseFloat(this.info.restaurantLatitude),
+          lng: parseFloat(this.info.restaurantLongitude)
+        };
+        this.markers.push({ position: markerB });
+        this.places.push(this.info.restaurantAddress);
       }
     },
-    geolocate: function() {
+    geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
         this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lat: parseFloat(position.coords.latitude),
+          lng: parseFloat(position.coords.longitude)
         };
       });
     }
+
+    // calculateAndDisplayRoute(
+    //   directionsService,
+    //   directionsDisplay,
+    //   pointA,
+    //   pointB
+    // ) {
+    //   directionsService.route(
+    //     {
+    //       origin: pointA,
+    //       destination: pointB,
+    //       travelMode: google.maps.TravelMode.DRIVING
+    //     },
+    //     function(response, status) {
+    //       if (status == google.maps.DirectionsStatus.OK) {
+    //         directionsDisplay.setDirections(response);
+    //       } else {
+    //         window.alert("Directions request failed due to " + status);
+    //       }
+    //     }
+    //   );
+    // }
   }
 };
 </script>

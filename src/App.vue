@@ -27,8 +27,8 @@ export default {
         restaurantPostal: "",
         restaurantStars: 0,
         restaurantCategories: "",
-        restaurantLocation: {},
-        currentLocation: {}
+        restaurantLatitude: "",
+        restaurantLongitude: ""
       }
     };
   },
@@ -56,6 +56,8 @@ export default {
             postal_code
             stars
             categories
+            latitude
+            longitude
           }
         }`,
         variables: {
@@ -77,6 +79,14 @@ export default {
         /;/g,
         ", "
       );
+      this.info.restaurantLatitude = parseFloat(
+        res.data.data.RandomRestaurantBy.latitude
+      );
+
+      this.info.restaurantLongitude = parseFloat(
+        res.data.data.RandomRestaurantBy.longitude
+      );
+
       this.$store.commit("setCurrentView", "ListView");
     }
   }
