@@ -22,11 +22,5 @@ export const getters = {
   },
   getStarInput(state) {
     return state.starInput;
-  },
-  getLocationInput(state) {
-    return state.locationInput;
-  },
-  getDistanceInput(state) {
-    return state.distanceInput;
   }
 };

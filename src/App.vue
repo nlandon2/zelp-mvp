@@ -2,9 +2,9 @@
 <template>
   <div id="app">
     <h1>ZELP</h1>
-    <Map />
+    <Map :info="info" />
     <FilterRestaurant />
-    <button @click="getRandomRestaurant">Get Restaurant</button>
+    <button @click="getRandomRestaurant">I'm Feeling Lucky</button>
     <ListRestaurant v-if="$store.getters['getCurrentView']==='ListView'" :info="info" />
   </div>
 </template>
@@ -26,7 +26,9 @@ export default {
         restaurantState: "",
         restaurantPostal: "",
         restaurantStars: 0,
-        restaurantCategories: ""
+        restaurantCategories: "",
+        restaurantLocation: {},
+        currentLocation: {}
       }
     };
   },
@@ -76,7 +78,6 @@ export default {
         ", "
       );
       this.$store.commit("setCurrentView", "ListView");
-      console.log(this.$store.getters["getZipInput"]);
     }
   }
 };
@@ -96,7 +97,7 @@ export default {
 
 button {
   display: inline-block;
-  max-width: 180px;
+  max-width: 200px;
   text-align: left;
   border: 2px solid #62792e;
   font-size: 20px;
@@ -106,6 +107,8 @@ button {
   padding: 8px 16px;
   border-radius: 4px;
   transition: 0.4s;
+  position: relative;
+  top: 10px;
   /* height: 2rem; */
 }
 
@@ -115,10 +118,9 @@ button:hover {
   color: #fff;
 }
 
-html,
-body,
-#app {
-  height: 200%;
+html {
+  height: 150%;
+  background-color: darkblue;
 }
 body {
   margin: 0;

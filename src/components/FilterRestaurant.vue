@@ -29,14 +29,6 @@
         <br />
         <input type="text" v-model="categoryInput" name="category" />
         <br />
-        <label class="title">Current Location:</label>
-        <br />
-        <input type="text" v-model="locationInput" name="location" />
-        <br />
-        <label class="title">Maximum Distance (miles):</label>
-        <br />
-        <input type="text" v-model="distanceInput" name="distance" />
-        <br />
       </div>
     </form>
   </div>
@@ -92,22 +84,6 @@ export default {
       },
       set(categoryInput) {
         this.$store.commit("setCategoryInput", categoryInput);
-      }
-    },
-    locationInput: {
-      get() {
-        return this.$store.state.locationInput;
-      },
-      set(locationInput) {
-        this.$store.commit("setLocationInput", locationInput);
-      }
-    },
-    distanceInput: {
-      get() {
-        return this.$store.state.distanceInput;
-      },
-      set(distanceInput) {
-        this.$store.commit("setDistanceInput", distanceInput);
       }
     }
   }
