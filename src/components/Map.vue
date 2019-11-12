@@ -1,13 +1,26 @@
 <template>
   <div id="map">
-    <GmapMap :center="center" :zoom="8" map-type-id="terrain" style="width: 100%; height: 500px ">
+    <GmapMap
+      :center="center"
+      :zoom="zoom"
+      map-type-id="terrain"
+      style="width: 100%; height: 500px "
+    >
       <GmapMarker
         :key="index"
-        v-for="(m, index) in markers"
+        v-for="(m, index) in blueMarkers"
         :position="m.position"
         :clickable="true"
         :draggable="true"
-        :icon="{ url: require('../assets/blue_marker.png')}"
+        :icon="icon"
+        @click="center=m.position"
+      />
+      <GmapMarker
+        :key="'A' + index"
+        v-for="(m, index) in redMarkers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
         @click="center=m.position"
       />
     </GmapMap>
@@ -26,10 +39,14 @@ export default {
   name: "Map",
   data() {
     return {
-      center: { lat: 38.9, lng: -77 },
-      markers: [],
+      center: { lat: 40, lng: -100 },
+      zoom: 4,
+      icon: { url: require("../assets/blue_marker.png") },
+      blueMarkers: [],
+      redMarkers: [],
       places: [],
-      currentLocation: null
+      currentLocation: null,
+      currentRestaurant: null
     };
   },
   computed: {
@@ -62,7 +79,8 @@ export default {
           lat: this.currentLocation.geometry.location.lat(),
           lng: this.currentLocation.geometry.location.lng()
         };
-        this.markers.push({ position: markerA });
+        this.blueMarkers.pop();
+        this.blueMarkers.push({ position: markerA });
         this.places.push(this.currentLocation);
         this.center = markerA;
       }
@@ -71,8 +89,11 @@ export default {
           lat: parseFloat(this.info.restaurantLatitude),
           lng: parseFloat(this.info.restaurantLongitude)
         };
-        this.markers.push({ position: markerB });
+        this.redMarkers.pop();
+        this.redMarkers.push({ position: markerB });
         this.places.push(this.info.restaurantAddress);
+        this.center = markerB;
+        this.zoom = 10;
       }
     },
     geolocate() {
