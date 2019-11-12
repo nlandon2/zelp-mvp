@@ -6,5 +6,6 @@ export const state = {
   zipInput: null,
   starInput: null,
   categoryInput: null,
-  distanceInput: null
+  distanceInput: null,
+  locationInput: null
 };

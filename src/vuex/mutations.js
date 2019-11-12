@@ -23,6 +23,9 @@ export const mutations = {
   setStarInput(state, stars) {
     state.starInput = stars;
   },
+  setLocationInput(state, location) {
+    state.locationInput = location;
+  },
   setDistanceInput(state, distance) {
     state.distanceInput = distance;
   }

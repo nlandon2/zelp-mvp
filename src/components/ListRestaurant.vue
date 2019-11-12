@@ -1,7 +1,8 @@
 <template>
   <div class="dataSet">
-    <div>{{`Name: ${info.restaurantName}`}}</div>
-    <div>{{`Address: ${info.restaurantAddress}`}}</div>
+    <h2>RESULTS</h2>
+    <div>{{`Name: ${info.restaurantName.replace(/^"(.*)"$/, '$1')}`}}</div>
+    <div>{{`Address: ${info.restaurantAddress.replace(/^"(.*)"$/, '$1')}`}}</div>
     <div>{{`${info.restaurantCity}, ${info.restaurantState} ${info.restaurantPostal}`}}</div>
     <div>{{`${info.restaurantStars} Stars`}}</div>
     <div>{{`Categories: ${info.restaurantCategories}`}}</div>

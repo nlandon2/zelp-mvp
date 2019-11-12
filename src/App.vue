@@ -2,6 +2,7 @@
 <template>
   <div id="app">
     <h1>ZELP</h1>
+    <Map />
     <FilterRestaurant />
     <button @click="getRandomRestaurant">Get Restaurant</button>
     <ListRestaurant v-if="$store.getters['getCurrentView']==='ListView'" :info="info" />
@@ -12,6 +13,8 @@
 import axios from "axios";
 import ListRestaurant from "./components/ListRestaurant";
 import FilterRestaurant from "./components/FilterRestaurant";
+import Map from "./components/Map";
+
 export default {
   name: "app",
   data() {
@@ -29,8 +32,10 @@ export default {
   },
   components: {
     ListRestaurant,
-    FilterRestaurant
+    FilterRestaurant,
+    Map
   },
+
   computed: {
     currentView() {
       return this.$store.state.currentView;
@@ -108,5 +113,14 @@ button:hover {
   background-color: #62792e;
   border-color: #738d35;
   color: #fff;
+}
+
+html,
+body,
+#app {
+  height: 200%;
+}
+body {
+  margin: 0;
 }
 </style>
