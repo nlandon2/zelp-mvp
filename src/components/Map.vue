@@ -1,6 +1,7 @@
 <template>
   <div id="map">
-    <GmapMap
+    <GmapMap 
+      ref="myMap"
       :center="center"
       :zoom="zoom"
       map-type-id="terrain"
@@ -33,7 +34,6 @@
 
 <script>
 /* eslint-disable no-console */
-import { gmapApi } from "vue2-google-maps";
 
 export default {
   name: "Map",
@@ -49,9 +49,7 @@ export default {
       currentRestaurant: null
     };
   },
-  computed: {
-    google: gmapApi
-  },
+
   props: {
     info: {
       id: Number,
@@ -71,9 +69,9 @@ export default {
   },
   methods: {
     setPlace(place) {
-      this.currentLocation = place;
+       this.currentLocation = place;
     },
-    addMarker() {
+    async addMarker() {
       if (this.currentLocation) {
         const markerA = {
           lat: this.currentLocation.geometry.location.lat(),
@@ -95,6 +93,10 @@ export default {
         this.center = markerB;
         this.zoom = 10;
       }
+      if (this.info.restaurantAddress && this.currentLocation) {
+        console.log(this.blueMarkers[0].position.lat)
+        this.getRoute();
+      }
     },
     geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
@@ -103,29 +105,25 @@ export default {
           lng: parseFloat(position.coords.longitude)
         };
       });
+    },
+    async getRoute() {
+        const directionsService =  new window.google.maps.DirectionsService()
+        const directionsDisplay =  new window.google.maps.DirectionsRenderer()
+        directionsDisplay.setMap(this.$refs.myMap.$mapObject)
+        directionsDisplay.set('directions', null)
+        directionsService.route(
+         {
+           origin: {lat: this.blueMarkers[0].position.lat, lng: this.blueMarkers[0].position.lng},
+           destination: {lat: this.redMarkers[0].position.lat, lng: this.redMarkers[0].position.lng},
+           travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+         },
+         function(response, status) {
+            if (status == window.google.maps.DirectionsStatus.OK) {
+              directionsDisplay.setDirections(response);
+            }
+          }
+        );
     }
-
-    // calculateAndDisplayRoute(
-    //   directionsService,
-    //   directionsDisplay,
-    //   pointA,
-    //   pointB
-    // ) {
-    //   directionsService.route(
-    //     {
-    //       origin: pointA,
-    //       destination: pointB,
-    //       travelMode: google.maps.TravelMode.DRIVING
-    //     },
-    //     function(response, status) {
-    //       if (status == google.maps.DirectionsStatus.OK) {
-    //         directionsDisplay.setDirections(response);
-    //       } else {
-    //         window.alert("Directions request failed due to " + status);
-    //       }
-    //     }
-    //   );
-    // }
   }
 };
 </script>

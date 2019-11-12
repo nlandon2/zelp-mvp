@@ -2,7 +2,7 @@
 <template>
   <div id="app">
     <h1>ZELP</h1>
-    <Map :info="info" />
+    <Map :info="info" ref="map" />
     <FilterRestaurant />
     <button @click="getRandomRestaurant">I'm Feeling Lucky</button>
     <ListRestaurant v-if="$store.getters['getCurrentView']==='ListView'" :info="info" />
@@ -43,6 +43,8 @@ export default {
       return this.$store.state.currentView;
     }
   },
+
+
   methods: {
     async getRandomRestaurant() {
       const res = await axios.post("http://localhost:4000/graphql", {
