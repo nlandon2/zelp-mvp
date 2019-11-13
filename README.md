@@ -1,4 +1,4 @@
-# zelp-mvp
+# Zelp
 
 Zelp is an app that decides a restaurant to eat for you if you cannot decide.
 
@@ -29,7 +29,7 @@ Please use `yarn migrate`, `yarn rollback`, and `yarn seed` for managing the dat
 
 This app also uses the Google Maps API. In `./src/main.js`, you have to input your own API key, which can be obtained by signing up as a Google Developer.
 
-### Technology used
+## Technology used
 
 -Vue/Vuex
 -Postgres/Knex
@@ -37,11 +37,11 @@ This app also uses the Google Maps API. In `./src/main.js`, you have to input yo
 -NodeJS/Express
 
 
-### Heroku
+## Heroku
 
 Work in progress
 
-### Future features
+## Future features
 
 For now, there is only the random restaurant feature, and it shows only the most basic directions from your current location to the restaurant.
 
