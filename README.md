@@ -31,10 +31,12 @@ This app also uses the Google Maps API. In `./src/main.js`, you have to input yo
 
 ## Technology used
 
+![technologies](https://user-images.githubusercontent.com/54035352/68725835-fd718d00-0602-11ea-8ff5-0b5802a5d841.png)
+
 -Vue/Vuex
 -Postgres/Knex
 -Google Maps: Map API, Geocoding API, Directions API
--NodeJS/Express
+-GraphQL
 
 
 ## Heroku
