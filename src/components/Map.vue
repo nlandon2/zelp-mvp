@@ -94,7 +94,6 @@ export default {
         this.zoom = 10;
       }
       if (this.info.restaurantAddress && this.currentLocation) {
-        console.log(this.blueMarkers[0].position.lat)
         this.getRoute();
       }
     },
@@ -109,7 +108,9 @@ export default {
     async getRoute() {
         const directionsService =  new window.google.maps.DirectionsService()
         const directionsDisplay =  new window.google.maps.DirectionsRenderer()
-        directionsDisplay.setMap(this.$refs.myMap.$mapObject)
+        const stepDisplay = new window.google.maps.InfoWindow;
+        const map = this.$refs.myMap.$mapObject
+        directionsDisplay.setMap(map)
         directionsDisplay.set('directions', null)
         directionsService.route(
          {
@@ -120,10 +121,12 @@ export default {
          function(response, status) {
             if (status == window.google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
+              this.showSteps(response, this.blueMarkers, stepDisplay, map);
             }
           }
         );
-    }
+        
+    },
   }
 };
 </script>

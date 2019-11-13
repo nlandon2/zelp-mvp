@@ -7,7 +7,7 @@ Vue.config.productionTip = false;
 
 Vue.use(Vue2GoogleMaps, {
   load: {
-    key: "",
+    key: "YOUR KEY HERE",
     libraries: "places,drawing,geometry, directions"
   }
 });
