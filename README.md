@@ -1,5 +1,7 @@
 # Zelp
 
+This was created during my time as a student at Code Chrysalis.
+
 Zelp is an app that decides a restaurant to eat for you if you cannot decide.
 
 
