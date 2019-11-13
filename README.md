@@ -38,7 +38,7 @@ This app also uses the Google Maps API. In `./src/main.js`, you have to input yo
 
 ## Heroku
 
-Work in progress
+Work in progress: https://zelp-mvp.herokuapp.com/
 
 ## Future features
 
