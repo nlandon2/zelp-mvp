@@ -29,10 +29,9 @@ Please use `yarn migrate`, `yarn rollback`, and `yarn seed` for managing the dat
 
 This app also uses the Google Maps API. In `./src/main.js`, you have to input your own API key, which can be obtained by signing up as a Google Developer.
 
-## Technology used
+## Technologies
 
 ![technologies](https://user-images.githubusercontent.com/54035352/68725835-fd718d00-0602-11ea-8ff5-0b5802a5d841.png)
-
 
 
 ## Heroku
