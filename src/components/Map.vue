@@ -108,7 +108,6 @@ export default {
     async getRoute() {
         const directionsService =  new window.google.maps.DirectionsService()
         const directionsDisplay =  new window.google.maps.DirectionsRenderer()
-        const stepDisplay = new window.google.maps.InfoWindow;
         const map = this.$refs.myMap.$mapObject
         directionsDisplay.setMap(map)
         directionsDisplay.set('directions', null)
@@ -121,7 +120,6 @@ export default {
          function(response, status) {
             if (status == window.google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
-              this.showSteps(response, this.blueMarkers, stepDisplay, map);
             }
           }
         );
