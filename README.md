@@ -44,8 +44,4 @@ Work in progress: https://zelp-mvp.herokuapp.com/
 
 For now, there is only the random restaurant feature, and it shows only the most basic directions from your current location to the restaurant.
 
-First, I want to make it more seamless by automatically creating a restaurant marker when pressing the random button, rather than only being able to do it with the Add button.
-
-Second, I want to create more detailed instructions, such as traffic, text describing what route to take, options such as driving and walking, alternative routes, and showing steps.
-
-Third, I want it to give more information about the place, and have a feature that lists all of the restaurants that fit the filters.
+I want to make it more seamless by automatically creating a restaurant marker when pressing the random button, rather than only being able to do it with the Add button. Next, the app will be able to create more detailed instructions, such as traffic, text describing what route to take, options such as driving and walking, alternative routes, and showing steps. I want it to give more information about the place, and have a feature that lists all of the restaurants that fit the filters.
